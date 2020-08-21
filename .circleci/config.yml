@@ -1,4 +1,10 @@
-version: 2
+version: 2.1
+orbs:
+  cloudrun: circleci/gcp-cloud-run@1.0.2
+workflows:  
+  build_and_deploy_to_managed_workflow:
+    jobs:
+    - build
 jobs:
   build:
     docker:
@@ -8,6 +14,15 @@ jobs:
     - run: lein deps
     - run: lein test
     - run: lein uberjar
+    - cloudrun/init
+    - cloudrun/build:
+        tag: 'gcr.io/${GOOGLE_PROJECT_ID}/strokeless:${CIRCLE_SHA1}'
+    - cloudrun/deploy:
+        platform: managed
+        region: us-west1
+        image: 'gcr.io/${GOOGLE_PROJECT_ID/strokeless:${CIRCLE_SHA1}'
+        service-name: strokeless
+        unauthenticated: true
     - setup_remote_docker
     - run: docker build -t nsmith5/strokeless:${CIRCLE_SHA1} .
     - deploy:
