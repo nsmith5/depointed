@@ -1,0 +1,10 @@
+version: 2
+jobs:
+  build:
+    docker:
+    - image: circleci/clojure:openjdk-11-lein-2.9.1
+    steps:
+    - checkout
+    - run lein deps
+    - run lein test
+    - run lein uberjar
