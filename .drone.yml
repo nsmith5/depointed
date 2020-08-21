@@ -27,4 +27,7 @@ steps:
   - printf "%s" "$${GOOGLE_KEYS}" > key.json
   - gcloud auth activate-service-account --key-file=key.json
   - gcloud run deploy strokeless --image us.gcr.io/strokeless/strokeless:${DRONE_COMMIT_SHA} --platform managed --project strokeless --region us-west1
+  when:
+    branch:
+    - main
 

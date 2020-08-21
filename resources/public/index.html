@@ -1,115 +1,35 @@
 <html>
-  <script type="text/javascript">
-    var canvas,
-      ctx,
-      flag = false,
-      prevX = 0,
-      currX = 0,
-      prevY = 0,
-      currY = 0,
-      dot_flag = false;
-
-    var x = "black",
-      y = 2;
-
-    function init() {
-      canvas = document.getElementById("can");
-      ctx = canvas.getContext("2d");
-      w = canvas.width;
-      h = canvas.height;
-
-      canvas.addEventListener(
-        "mousemove",
-        function(e) {
-          findxy("move", e);
-        },
-        false
-      );
-      canvas.addEventListener(
-        "mousedown",
-        function(e) {
-          findxy("down", e);
-        },
-        false
-      );
-      canvas.addEventListener(
-        "mouseup",
-        function(e) {
-          findxy("up", e);
-        },
-        false
-      );
-      canvas.addEventListener(
-        "mouseout",
-        function(e) {
-          findxy("out", e);
-        },
-        false
-      );
-    }
-
-    function draw() {
-      ctx.beginPath();
-      ctx.moveTo(prevX, prevY);
-      ctx.lineTo(currX, currY);
-      ctx.strokeStyle = x;
-      ctx.lineWidth = y;
-      ctx.stroke();
-      ctx.closePath();
-    }
-
-    function erase() {
-      var m = confirm("Want to clear");
-      if (m) {
-        ctx.clearRect(0, 0, w, h);
-        document.getElementById("canvasimg").style.display = "none";
-      }
-    }
-
-    function save() {
-      document.getElementById("canvasimg").style.border = "2px solid";
-      var dataURL = canvas.toDataURL();
-      document.getElementById("canvasimg").src = dataURL;
-      document.getElementById("canvasimg").style.display = "inline";
-    }
-
-    function findxy(res, e) {
-      if (res == "down") {
-        prevX = currX;
-        prevY = currY;
-        currX = e.clientX - canvas.offsetLeft;
-        currY = e.clientY - canvas.offsetTop;
-
-        flag = true;
-        dot_flag = true;
-        if (dot_flag) {
-          ctx.beginPath();
-          ctx.fillStyle = x;
-          ctx.fillRect(currX, currY, 2, 2);
-          ctx.closePath();
-          dot_flag = false;
-        }
-      }
-      if (res == "up" || res == "out") {
-        flag = false;
-      }
-      if (res == "move") {
-        if (flag) {
-          prevX = currX;
-          prevY = currY;
-          currX = e.clientX - canvas.offsetLeft;
-          currY = e.clientY - canvas.offsetTop;
-          draw();
-        }
-      }
-    }
-  </script>
+  <head>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+      integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+      crossorigin="anonymous"
+    ></script>
+    <script type="text/javascript" src="js/canvas.js"></script>
+    <link rel="stylesheet" href="css/main.css" />
+  </head>
   <body onload="init()">
-    <canvas
-      id="can"
-      width="400"
-      height="400"
-      style="position:absolute;top:10%;left:10%;border:2px solid;"
-    ></canvas>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#">Strokeless</a>
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit">
+          Teach
+        </button>
+      </div>
+    </nav>
+    <div id="main" class="container">
+      <div class="card">
+        <canvas id="can" class="card-canvas-top"></canvas>
+        <div class="card-body">
+          <a href="#" class="btn btn-primary">Search</a>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
