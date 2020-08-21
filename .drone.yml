@@ -7,7 +7,7 @@ steps:
   - lein deps
   - lein test
   - lein uberjar
-- name: docker
+- name: container build and push
   image: plugins/gcr
   settings:
     registry: us.gcr.io
@@ -18,3 +18,11 @@ steps:
   when:
     branch:
     - main
+- name: deploy
+  image: google/cloud-sdk
+  environment:
+    GOOGLE_APPLICATION_CREDENTIALS: key.json
+  commands:
+  - echo $${google_credentials} > key.json
+  - gcloud run deploy strokeless --image us.gcr.io/strokeless/strokelss:${DRONE_COMMIT_SHA}
+
