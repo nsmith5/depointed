@@ -5,7 +5,11 @@
             [compojure.core :refer [defroutes GET]])
   (:gen-class))
 
+(defn hello-handler [req]
+  {:body "Hello World!"})
+
 (defroutes routes
+  (GET "/hello" [] hello-handler)
   (GET "/" [] (resource-response "public/index.html")))
 
 (def app
