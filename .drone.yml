@@ -1,0 +1,20 @@
+kind: pipeline
+name: default
+steps:
+- name: test and build
+  image: clojure:openjdk-11-lein
+  commands:
+  - lein deps
+  - lein test
+  - lein uberjar
+- name: docker
+  image: plugins/docker
+  settings:
+    repo: nsmith5/strokeless
+    tags: ${DRONE_COMMIT_SHA}
+    username: nsmith5
+    password:
+      from_secret: docker_pwd
+  when:
+    branch:
+    - main
