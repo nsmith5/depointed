@@ -5,7 +5,6 @@
             [compojure.core :refer [defroutes GET]])
   (:gen-class))
 
-
 (defroutes routes
   (GET "/" [] (resource-response "public/index.html")))
 
