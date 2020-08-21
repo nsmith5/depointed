@@ -8,13 +8,13 @@ steps:
   - lein test
   - lein uberjar
 - name: docker
-  image: plugins/docker
+  image: plugins/gcr
   settings:
-    repo: nsmith5/strokeless
+    registry: us.gcr.io
+    repo: strokeless/strokeless
     tags: ${DRONE_COMMIT_SHA}
-    username: nsmith5
-    password:
-      from_secret: docker_pwd
+    json_key:
+      from_secret: google_credentials
   when:
     branch:
     - main
