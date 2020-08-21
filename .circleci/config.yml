@@ -16,11 +16,11 @@ jobs:
     - run: lein uberjar
     - cloudrun/init
     - cloudrun/build:
-        tag: 'gcr.io/${GOOGLE_PROJECT_ID}/strokeless:${CIRCLE_SHA1}'
+        tag: 'us.gcr.io/${GOOGLE_PROJECT_ID}/test-${CIRCLE_SHA1}'
     - cloudrun/deploy:
         platform: managed
         region: us-west1
-        image: 'gcr.io/${GOOGLE_PROJECT_ID}/strokeless:${CIRCLE_SHA1}'
+        image: 'us.gcr.io/${GOOGLE_PROJECT_ID}/test-${CIRCLE_SHA1}'
         service-name: strokeless
         unauthenticated: true
     - setup_remote_docker
