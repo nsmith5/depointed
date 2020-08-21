@@ -16,7 +16,7 @@ jobs:
     - run: lein test
     - run: lein uberjar
     - gcp-gcr/gcr-auth
-    - gcp-gcr/build-and-push-image
+    - gcp-gcr/build-and-push-image:
         image: strokeless
         registry-url: us.gcr.io
     - cloudrun/init
