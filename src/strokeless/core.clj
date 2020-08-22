@@ -2,7 +2,6 @@
   (:require [org.httpkit.server :refer [run-server]]
             [ring.middleware.resource :refer [wrap-resource]]
             [ring.util.response :refer [resource-response]]
-            [clojure.data.json :as json]
             [compojure.core :refer [defroutes GET POST]])
   (:gen-class))
 
