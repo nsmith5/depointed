@@ -1,22 +1,26 @@
 (ns strokeless.core
-  (:require [ring.adapter.jetty :refer [run-jetty]]
+  (:require [org.httpkit.server :refer [run-server]]
             [ring.middleware.resource :refer [wrap-resource]]
             [ring.util.response :refer [resource-response]]
-            [compojure.core :refer [defroutes GET]])
+            [clojure.data.json :as json]
+            [compojure.core :refer [defroutes GET POST]])
   (:gen-class))
 
-(defn hello-handler [req]
-  {:body "Hello World!"})
+(defn upload [req]
+  (clojure.java.io/copy 
+    (:body req)
+    (java.io.File. "upload.png")) 
+  {:body req})
 
 (defroutes routes
-  (GET "/hello" [] hello-handler)
+  (POST "/upload" [] upload)
   (GET "/" [] (resource-response "public/index.html")))
 
 (def app
   (-> routes
       (wrap-resource "public")))
 
-(defn server [] (run-jetty app {:join? false, :port 3000}))
+(defn server [] (run-server app {:port 3000}))
 
 (defn -main [& args]
   (server))

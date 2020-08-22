@@ -1,12 +1,5 @@
-#can {
+canvas {
   width: 400px;
   height: 400px;
-  border-color: black;
-}
-
-div.card {
-  width: 400px;
-}
-
-#main {
+  border: 1px solid black;
 }
