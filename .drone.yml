@@ -19,7 +19,7 @@ steps:
     branch:
     - main
 - name: deploy
-  image: google/cloud-sdk
+  image: google/cloud-sdk:alpine
   environment:
     GOOGLE_KEYS:
       from_secret: google_credentials
