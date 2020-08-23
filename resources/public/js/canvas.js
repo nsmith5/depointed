@@ -65,18 +65,26 @@ function erase() {
   ) 
 }
 
-function save() {
+function predict() {
+  console.log("Not implimented")
+}
+
+function upload() {
+  var label = document.getElementById("character").value
   state.canvas.toBlob(
     (blob) => {
       fetch(
-        "/upload",
+        `/upload?label=${label}`,
         {
           method: "POST",
           mode: "same-origin",
           headers: { "Content-Type": "image/png" },
           body: blob
         }
-      ).then( response => console.log(response) )
+      ).then( response => {
+        // Clear image after upload 
+        erase()
+      })
     },
     "image/png"
   )
