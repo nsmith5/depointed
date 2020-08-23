@@ -20,10 +20,17 @@
   [name]
   (boolean (re-matches #".*\.png" name)))
 
+(defn as-csv-line
+  "Take an object name and return the line of a label csv"
+  [name]
+  (let [label (first (clojure.string/split name #"/"))
+        gs-uri (str "gs://" bucket-name "/" name)]
+    (str gs-uri "," label)))
+
 (defn csv
   "Create CSV of labels from all image objects in bucket"
   [objects]
-  (filter is-image? objects))
+  (clojure.string/join "\n" (map as-csv-line (filter is-image? objects))))
 
 (defn objects
   "Enumarates all objects in a the bucket"
@@ -31,6 +38,14 @@
   (let [bucket (.get client bucket-name no-bucket-options)
         objects (.list bucket no-list-options)]
     (map (fn [obj] (.getName obj)) (.iterateAll objects))))
+
+(defn update-label-csv
+  "Store csv of image labels"
+  []
+  (let [path "label.csv"
+        id (BlobId/of bucket-name path)
+        info (.build (.setContentType (BlobInfo/newBuilder id) "text/csv"))]
+    (.create client info (.getBytes (csv (objects)) "UTF-8") no-blob-options)))
 
 (defn store-labelled-image
   "Store labelled image bucket"
@@ -43,4 +58,4 @@
             info (.build (.setContentType (BlobInfo/newBuilder id) "image/png"))]
         (.create client info img no-blob-options))
       ; Then sync CSV labal file
-      (println (csv (objects)))))
+      (update-label-csv)))
