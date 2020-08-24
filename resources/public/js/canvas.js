@@ -26,20 +26,24 @@ function move(e) {
     state.x = e.offsetX
     state.y = e.offsetY
   }
+  console.log(e)
 }
 
 function down(e) {
   state.drawing = true
   state.x = e.offsetX
   state.y = e.offsetY
+  console.log(e)
 }
 
 function up(e) {
   state.drawing = false
+  console.log(e)
 }
 
 function out(e) {
   state.drawing = false
+  console.log(e)
 }
 
 function init() {
@@ -49,7 +53,11 @@ function init() {
     {e: "mousemove", f: move},
     {e: "mousedown", f: down},
     {e: "mouseup", f: up},
-    {e: "mouseout", f: out}
+    {e: "mouseout", f: out},
+    {e: "touchstart", f: down},
+    {e: "touchend", f: up},
+    {e: "touchcancel", f: out},
+    {e: "touchmove", f: move}
   ]
   handlers.forEach( (obj) => {
     state.canvas.addEventListener(obj.e, obj.f, false)
