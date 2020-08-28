@@ -82,7 +82,8 @@ function predict() {
 }
 
 function upload() {
-  var label = document.getElementById("character").value
+  let label = document.getElementById("character").value
+  let codePoint = label.codePointAt(0).toString(16) 
   state.canvas.toBlob(
     (blob) => {
       fetch(
