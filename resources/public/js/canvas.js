@@ -87,7 +87,7 @@ function upload() {
   state.canvas.toBlob(
     (blob) => {
       fetch(
-        `/upload?label=${label}`,
+        `/upload?label=${codePoint}`,
         {
           method: "POST",
           mode: "same-origin",
