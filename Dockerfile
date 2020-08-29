@@ -9,6 +9,6 @@ RUN lein uberjar
 # Run
 FROM adoptopenjdk:11-jre-hotspot
 WORKDIR /app
-COPY --from=builder /app/source/target/uberjar/strokeless-0.1.0-SNAPSHOT-standalone.jar strokeless.jar
+COPY --from=builder /app/source/target/uberjar/depointed-0.1.0-SNAPSHOT-standalone.jar depointed.jar
 EXPOSE 3000
-CMD ["java", "-jar", "strokeless.jar"]
+CMD ["java", "-jar", "depointed.jar"]

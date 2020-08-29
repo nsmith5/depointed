@@ -1,4 +1,4 @@
-(ns strokeless.storage
+(ns depointed.storage
   (:import (com.google.cloud.storage BlobId BlobInfo Storage 
                                      StorageOptions Storage$BlobTargetOption
                                      Storage$BucketGetOption Storage$BlobListOption )))
@@ -7,8 +7,8 @@
 (def client
   (.getService (StorageOptions/getDefaultInstance)))
 
-; Strokeless default bucket
-(def bucket-name "strokeless-data")
+; depointed default bucket
+(def bucket-name "depointed-data")
 
 ; no-x-options is a short hand for passing no addition options
 ; to certain Storate APIs.

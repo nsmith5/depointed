@@ -1,6 +1,6 @@
-(ns strokeless.core-test
+(ns depointed.core-test
   (:require [clojure.test :refer :all]
-            [strokeless.core :refer :all]))
+            [depointed.core :refer :all]))
 
 (deftest a-test
   (testing "FIXME, I fail."

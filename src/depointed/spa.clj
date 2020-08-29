@@ -1,4 +1,4 @@
-(ns strokeless.spa
+(ns depointed.spa
     (:require [ring.util.response :as response]
               [ring.middleware.content-type :refer [wrap-content-type]]
               [ring.middleware.not-modified :refer [wrap-not-modified]]

@@ -1,9 +1,9 @@
-(ns strokeless.server
+(ns depointed.server
   (:require [clojure.string :as string] 
             [org.httpkit.server :refer [run-server]]
             [ring.util.request :as request]
-            [strokeless.spa :as spa]
-            [strokeless.api :as api]))
+            [depointed.spa :as spa]
+            [depointed.api :as api]))
 
 ; Default ring handler
 (defn default-handler

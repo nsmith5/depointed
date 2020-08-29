@@ -1,9 +1,9 @@
-(ns strokeless.api
+(ns depointed.api
     (:require [clojure.data.json :as json]
               [ring.middleware.params :refer [wrap-params]]
               [ring.util.response :as response]
               [ring.util.request :as request]
-              [strokeless.storage :as storage]))
+              [depointed.storage :as storage]))
 
 (defn upload 
     "Handle upload of new labelled imaged" 

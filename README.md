@@ -1,8 +1,3 @@
-# Strokeless
+# Depointed
 
-[![CircleCI][build-badge]][build-link]
-
-Identify Chinese characters without knowing the stroke order
-
-[build-badge]: https://circleci.com/gh/nsmith5/strokeless.svg?style=svg 
-[build-link]: https://circleci.com/gh/nsmith5/strokeless
+Lookup any unicode character (codepoint) by drawing it.
