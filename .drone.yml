@@ -1,6 +1,12 @@
 kind: pipeline
 name: default
 steps:
+- name: build frontend
+  image: node:14
+  commands:
+  - cd frontend
+  - yarn install
+  - yarn build --dest=../resources/public
 - name: test and build
   image: clojure:openjdk-11-lein
   commands:
