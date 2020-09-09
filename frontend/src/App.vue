@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <Canvas height=256 width=256></Canvas>
+    <Upload/>
   </div>
 </template>
 
 <script>
-import Canvas from './components/Canvas.vue'
+import Upload from './components/Upload.vue'
 
 export default {
   name: 'App',
   components: {
-    Canvas
+    Upload
   }
 }
 </script>
