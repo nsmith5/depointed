@@ -24,14 +24,13 @@ export default {
     return {canvas: null, x: 0, y: 0, drawing: false}
   },
   methods: {
+    // Drawing methods
     start(x, y) {
-      // Start drawing at point (x, y)
       this.drawing = true
       this.x = x
       this.y = y
     },
     draw(x, y) {
-      // Draw from last point to (x, y)
       let ctx = this.canvas.getContext('2d')
       ctx.beginPath()
       ctx.strokeStyle = 'black'
@@ -44,7 +43,6 @@ export default {
       this.y = y
     },
     stop() {
-      // Stop drawing and emit canvas update
       this.drawing = false
       this.canvas.toBlob(
         (blob) => {
@@ -53,7 +51,11 @@ export default {
         'image/png'
       )
     },
-
+    clear() {
+      let ctx = this.canvas.getContext('2d')
+      ctx.clearRect(0, 0, this.canvas.width, this.canvas.height) 
+    },
+    
     // Mouse event handlers
     mousedown(e) {
       this.start(e.offsetX, e.offsetY)
