@@ -16,8 +16,8 @@ export default {
   },
   data: () => { return { image: null } },
   methods: {
-    upload(event) {
-      let image = event
+    upload() {
+      let image = this.image
       let codePoint = 'example'
       fetch(
         `/api/upload?label=${codePoint}`,
