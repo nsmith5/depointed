@@ -9,6 +9,7 @@ depointed = {editable = true, path = "."}
 [packages]
 flask = "*"
 pillow = "*"
+tensorflow = "*"
 
 [requires]
-python_version = "3.9"
+python_version = "3.8"

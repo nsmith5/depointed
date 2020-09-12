@@ -4,6 +4,10 @@ import pathlib
 
 import flask
 import PIL.Image
+import tensorflow
+from tensorflow.keras import preprocessing
+
+from . import model
 
 bp = flask.Blueprint('api', __name__, url_prefix='/api')
 
@@ -22,12 +26,12 @@ def upload():
     filepath = f'{directory}/{datetime.datetime.now().isoformat("T")}.png'
 
     img = PIL.Image.open(io.BytesIO(flask.request.data)) 
-    img.thumbnail((32,32))
+    img.thumbnail((256,256))
     img.save(filepath) 
    
     response = {
         'msg': 'image uploaded',
-        'path': filpath,
+        'path': filepath,
     }
     return response, 201
 
@@ -37,18 +41,39 @@ def train():
     """train triggers and update of the model by training on the current data
     set.
     """
-    return flask.Response(
-        '{"msg": "Not Implemented"}',
-        status=501,
-        mimetype="application/json",
-    )
+    m = model.create('data')
+    m.save('model.tf') 
+
+    response = {
+        'msg': 'Model trained',
+        'path': f'data/model.tf'
+    }
+    return response, 201
 
 
 @bp.route('/predict', methods=['POST'])
 def predict():
     """Predict character using model and uploaded image"""
-    return flask.Response(
-        '{"msg": "Not Implemented"}',
-        status=501,
-        mimetype='application/json',
+    tmp_file = '/tmp/img.png' 
+    img = PIL.Image.open(io.BytesIO(flask.request.data)) 
+    img.thumbnail((256,256))
+    img.save(tmp_file) 
+  
+    img = preprocessing.image.load_img(
+        tmp_file,
+        target_size=(256, 256),
+        color_mode='grayscale',
+        interpolation='bicubic',
     )
+
+    img = preprocessing.image.img_to_array(img)
+    img = tensorflow.expand_dims(img, 0)
+    
+    m = model.load('model.tf')
+    predictions = m.predict(img)
+    print(predictions)
+
+    response = {
+        'prediction': str(predictions[0]),
+    }
+    return response, 200
