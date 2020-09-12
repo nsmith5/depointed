@@ -8,6 +8,7 @@ depointed = {editable = true, path = "."}
 
 [packages]
 flask = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.9"

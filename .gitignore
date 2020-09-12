@@ -1,5 +1,6 @@
 *.swp
 
+data
 build
 public
 *.egg-info
