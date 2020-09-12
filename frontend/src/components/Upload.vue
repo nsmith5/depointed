@@ -8,6 +8,8 @@
     ></Canvas>
     <button v-on:click="upload">Upload</button>
     <button v-on:click="clear">Clear</button><br>
+    <button v-on:click="predict">Predict</button>
+    <button v-on:click="train">Train</button><br>
     <label>Character you'd like to draw and upload</label><br>
     <input v-model='label' placeholder="文"/>
   </div> 
@@ -31,19 +33,44 @@ export default {
   methods: {
     upload() {
       let image = this.image
-      let codePoint = this.label.codePointAt(0).toString(16)
+      let label = this.label
       fetch(
-        `/api/upload?label=${codePoint}`,
+        `/api/upload?label=${label}`,
         {
           method: "POST",
           mode: "same-origin",
           headers: { "Content-Type": "image/png" },
           body: image
         }
-      )
+      ).then(this.clear)
     },
     clear() {
       this.$refs.canvas.clear() 
+    },
+    predict() {
+      let image = this.image
+      fetch(
+        `/api/predict`,
+        {
+          method: "POST",
+          mode: "same-origin",
+          headers: { "Content-Type": "image/png" },
+          body: image
+        }
+      ).then((resp) => {
+        console.log(resp)
+      })
+    },
+    train() {
+      fetch(
+        `/api/train`,
+        {
+          method: "POST",
+          mode: "same-origin",
+        }
+      ).then((resp) => {
+        console.log(resp)
+      })
     }
   }
 }
